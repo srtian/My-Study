@@ -60,3 +60,155 @@ public class Hello {
     } // 这是单行注释
 }
 ```
+
+## 2.Java 变量和数据类型
+
+Java 中，变量分为两种，基本类型和引用类型（这和 JavaScript 一样）
+
+### 基本类型
+
+#### 变量
+
+在 Java 中，变量必须先被定义后使用,也可以被重新赋值，还可以赋值给其他变量:
+
+```java
+public class Hello {
+    public static void main(String[] args) {
+        int n = 1; // 定义变量n，同时赋值为1
+        System.out.println("n = " + n); // 打印n的值
+
+        n = 100; // 变量n赋值为100
+        System.out.println("n = " + n); // 打印n的值
+
+        int x = n; // 变量x赋值为n
+        System.out.println("x = " + x); // 打印x的值
+
+        x = x + 100; // 变量x赋值为x+100
+        System.out.println("x = " + x); // 打印x的值 200
+        System.out.println("n = " + n); // 再次打印n的值，100
+   }
+}
+```
+
+#### 基本数据类型
+
+Java 的基本数据类型是可以直接 CPU 进行运算的类型，主要有以下几种：
+
+- 整数类型：byte, short, int, long
+- 浮点数类型：float, double
+- 字符类型：char
+- 布尔类型：boolean
+
+这些基础类型出了其表示的数据不同外，所占的字节数也不同：
+
+```
+       ┌───┐
+  byte │   │
+       └───┘
+       ┌───┬───┐
+ short │   │   │
+       └───┴───┘
+       ┌───┬───┬───┬───┐
+   int │   │   │   │   │
+       └───┴───┴───┴───┘
+       ┌───┬───┬───┬───┬───┬───┬───┬───┐
+  long │   │   │   │   │   │   │   │   │
+       └───┴───┴───┴───┴───┴───┴───┴───┘
+       ┌───┬───┬───┬───┐
+ float │   │   │   │   │
+       └───┴───┴───┴───┘
+       ┌───┬───┬───┬───┬───┬───┬───┬───┐
+double │   │   │   │   │   │   │   │   │
+       └───┴───┴───┴───┴───┴───┴───┴───┘
+       ┌───┬───┐
+  char │   │   │
+       └───┴───┘
+```
+
+##### 整数类型
+
+对于整型类型，Java 只定义了带符号的整型，因此，最高位的 bit 表示符号位（0 表示正数，1 表示负数），其范围如下：
+
+```java
+byte：-128 ~ 127
+short: -32768 ~ 32767
+int: -2147483648 ~ 2147483647
+long: -9223372036854775808 ~ 9223372036854775807
+```
+
+我们可以如下定义整型：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        int i = 2147483647;
+        int i2 = -2147483648;
+        int i3 = 2_000_000_000; // 加下划线更容易识别
+        int i4 = 0xff0000; // 十六进制表示的16711680
+        int i5 = 0b1000000000; // 二进制表示的512
+        long l = 9000000000000000000L; // long型的结尾需要加L
+    }
+}
+```
+
+##### 浮点型
+
+浮点型就是小数：
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        float f1 = 3.14f;
+        float f2 = 3.14e38f; // 科学计数法表示的3.14x10^38
+        double d = 1.79e308;
+        double d2 = -1.79e308;
+        double d3 = 4.9e-324; // 科学计数法表示的4.9x10^-324
+    }
+}
+```
+
+对于 float 类型需要加上 f 前缀。浮点数可表示的范围非常大，float 类型可最大表示 3.4x1038，而 double 类型可最大表示 1.79x10308
+
+##### 布尔类型
+
+布尔类型 boolean 只有 true 和 false 两个值
+
+```java
+boolean b1 = true;
+boolean b2 = false;
+boolean isGreater = 5 > 3; // 计算结果为true
+int age = 12;
+boolean isAdult = age >= 18; // 计算结果为false
+```
+
+Java 语言对布尔类型的存储并没有做规定，因为理论上存储布尔类型只需要 1 bit，但是通常 JVM 内部会把 boolean 表示为 4 字节整数
+
+##### 字符类型
+
+字符类型 char 表示一个字符。Java 的 char 类型除了可表示标准的 ASCII 外，还可以表示一个 Unicode 字符
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        char a = 'A';
+        char zh = '中';
+        System.out.println(a);
+        System.out.println(zh);
+    }
+}
+```
+
+需要注意的是 char 类型使用单引号，且只有一个字符，要和双引号的字符串类型区分开来
+
+##### 常量
+
+在定义变量的时候，如果在前面加上 final 修饰符，这个变量就变成了常量：
+
+```java
+final double a = 3.14
+a = 100 // complie error
+```
+
+常量在定义时进行初始化后，就不可以再赋值了，这一点和 const 行为是一致的，再次赋值会导致编译错误。
+
+常量最大的作用在于用有意义的变量名来避免魔术数字，根据编程习惯，常量需要全部大写。
